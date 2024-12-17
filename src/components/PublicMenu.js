@@ -15,7 +15,7 @@ export default function PublicMenu() {
             <div className="max-w-5xl mx-auto px-6 md:px-12 xl:px-6">
               <div className="flex flex-wrap items-center justify-between">
                 <div>
-                  <a href="/">Muhammad Shiddiq Baihaqi</a>
+                  <a href="/">eki eki</a>
                 </div>
                 <div>
                   <ul className="flex flex-row gap-6">
