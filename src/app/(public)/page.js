@@ -15,7 +15,7 @@ export default function Dashboard() {
                   </div>
               </div>
               <div className="md:w-1/3">
-              <img class="" src="/image/IMG_20230725_085929.jpg"></img>
+              <img class="" src="/images/IMG_20230725_085929.jpg"></img>
               </div>
           </div>
     </>
