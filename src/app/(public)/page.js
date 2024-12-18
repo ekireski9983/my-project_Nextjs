@@ -45,7 +45,7 @@ export default function Dashboard() {
             </button>
           </div>
           <div>
-            <img src="images/IMG_20230725_085929.jpg" />
+            <img src="images/avatar.jpg" />
           </div>
         </div>
 
