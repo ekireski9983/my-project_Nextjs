@@ -2,7 +2,7 @@
 import Card from '../../../../../components/card';
 import ConfigDialog from '../../../../../components/ConfirmDialog'
 import { useState } from 'react'
-import { useRef } from 'react';
+import { useRef,useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function AdminBlogsForm() {
@@ -10,28 +10,43 @@ export default function AdminBlogsForm() {
     const [modal, setModal] = useState(false)
     const [modalTitle, setModalTitle] = useState("")
     const [modalMessage, setModalMessage] = useState("")
+    const [dataKategori, setDataKategori] = useState([])
+
     const [data, setData] = useState({
+        idKategori:'',
         title:'',
         subTitle:'',
         content:'',
-        kategori:'',
+       
+        created_at:new Date()
     });
+    const onFetchKategori = async () => {
+        try {
+            let res = await fetch("/api/kategori");
+          let data = await res.json();
+          setDataKategori(data.data);
+        
+        } catch (err) {
+            console.log("err", err);
+            setData([]);
 
+        }
+      };
+       useEffect(() => {
+              onFetchKategori();
+            }, []);
+    const [selectedOption, setSelectedOption] = useState('option1');
+
+  
+    
     const clearData = ()=>{
         setData({
             title:'',
             subTitle:'',
             content:'',
-            kategori:'',
         })
     }
-    const kategori = [
-        {label:'React Js', value:'React Js'},
-        {label:'React Js', value:'React Js'},
-        {label:'React Native', value:'React Native'},
-        {label:'Vlue.js', value:'Vlue.js'},
-        {label:'Web Pemograman', value:'Web Pemograman'},
-      ]
+
     const inputHandler= (e) =>{
         setData({...data, [e.target.name]: e.target.value })
     }
@@ -45,6 +60,7 @@ export default function AdminBlogsForm() {
 
     async function onSubmitData() {
         try{
+            
             if (editorRef.current) {
                 const body = data
                 body.content = editorRef.current.getContent();
@@ -93,25 +109,31 @@ export default function AdminBlogsForm() {
                         className="w-full border my-input-text"/>
             </div>
             <div className="w-full my-2">
-            <label>kategori</label>
-            <select  
-            name='kategori' 
-            value={data.kategori}  // Tambahkan value untuk menampilkan data yang dipilih
-            onChange={inputHandler}
-            className="w-full border my-input-text">
-            {
-            kategori.map((item, key) => 
-            <option key={key} value={item.value}>{item.label}</option>
-            )
-            }
-</select>
+                <label>Category Blogs</label>
+                <select
+                name='idKategori'
+      value={data.idKategori}
+      onChange={inputHandler}
+      className="w-full border my-input-text"
+    >
+        <option value="">Pilih Kategori
+        </option>
+        {dataKategori.map((option) => {
+    return (
+        <option key={option._id} value={option._id}>
+            {option.namaKategori}
+        </option>
+    );
+})}
 
-        </div>
+    </select>
+            </div>
+
             <div className="w-full my-2">
                 <label>Content</label>
                 <Editor
                     id='content'
-                    apiKey='9cwimxs87anry0u2avnf1wswmlg849552261vhxbl2qb8qkw'
+                    apiKey='m2afkqhuq0nwt7jf6mqbtbkpyxnf2radrrhi6s4kbu4mxdca'
                     onInit={(_evt, editor) => editorRef.current = editor}
                     initialValue={data.content}
                     init={{

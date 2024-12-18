@@ -18,7 +18,8 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
                     $set: {
                         content: body.content,
                         subTitle: body.subTitle,
-                        title: body.title
+                        title: body.title,
+                        updated_at:new Date()
                     },
                   };
                 console.log('filter',filter)
